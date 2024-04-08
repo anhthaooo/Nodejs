@@ -1,11 +1,11 @@
-import express from 'express'
+import express, { Router } from 'express'
 import { register, wrap } from 'module'
 import { loginController, registerController } from '~/controllers/users.controllers'
 import { loginValidator, registerValidator } from '~/middlewares/users.middlewares'
 import { wrapRequestHandler } from '~/utils/handlers'
 import { validate } from '~/utils/validation'
-const router = express.Router()
-router.post('/login', loginValidator, loginController)
+const usersRouter = Router()
+usersRouter.post('/login', loginValidator, wrapRequestHandler(loginController))
 /**
  * Description. Register a new user
  * Path: /register
@@ -13,5 +13,5 @@ router.post('/login', loginValidator, loginController)
  * Body{ name: string, email: string, pasword: string,confirm _password: string,
  * date of birth: ISO8601}
  */
-router.post('/register', registerValidator, wrapRequestHandler(registerController))
-export default router
+usersRouter.post('/register', registerValidator, wrapRequestHandler(registerController))
+export default usersRouter
