@@ -22,7 +22,8 @@ usersRouter.post('/login', loginValidator, wrapRequestHandler(loginController))
  */
 usersRouter.post('/register', registerValidator, wrapRequestHandler(registerController))
 
-usersRouter.post('/logout',
+usersRouter.post(
+  '/logout',
   accessTokenValidator,
   wrapRequestHandler((req, res) => {
     res.json({ message: 'Logout successfully' })
